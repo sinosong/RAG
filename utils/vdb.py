@@ -1,23 +1,21 @@
 """Vector Database Utilities."""
-import os
 
 from langchain_community.vectorstores import Qdrant
-from langchain.embeddings.xinference import XinferenceEmbeddings
 from loguru import logger
-from omegaconf import DictConfig
 from qdrant_client import QdrantClient
-from ultra_simple_config import load_config
+
+from utils.ollama import (
+    load_embedding_model,
+)
 
 
-@load_config(location="config/conf.yml")
-def init_qdrant_db(cfg: DictConfig, collection_name: str):
+def init_qdrant_db(collection_name: str = "default"):
     """Establish a connection to the Qdrant DB."""
-    qdrant_client = QdrantClient(cfg.qdrant.url, port=cfg.qdrant.port, api_key=os.getenv("QDRANT_API_KEY"), prefer_grpc=cfg.qdrant.prefer_grpc)
+    qdrant_client = QdrantClient("http://localhost", port=6333, prefer_grpc=False)
     logger.info(f"USING COLLECTION: {collection_name}")
 
-    embedding = XinferenceEmbeddings(server_url=cfg.embeddings.server_url, model_uid=cfg.embeddings.model_name)
-
-    vector_db = Qdrant(client=qdrant_client, collection_name=collection_name, embeddings=embedding)
+    embedding = load_embedding_model()
+    qdrant = Qdrant(client=qdrant_client, collection_name=collection_name, embeddings=embedding)
     logger.info("SUCCESS: Qdrant DB initialized.")
 
-    return vector_db
+    return qdrant

@@ -10,3 +10,4 @@ qdrant-client
 pytest~=8.2.2
 loguru~=0.7.2
 omegaconf~=2.3.0
+ultra_simple_config

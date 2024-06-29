@@ -7,7 +7,7 @@ from backend.local_service import (
     embedd_documents,
 )
 
-root_path = "/Users/esvc/biyao/tool/RAG"
+root_path = "/Users/sinosong/project/public3rd/RAG"
 
 
 def test_embedd_documents() -> None:
