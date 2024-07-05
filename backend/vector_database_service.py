@@ -23,7 +23,7 @@ def get_db_connection(collection_name: str) -> Qdrant:
         if "Not found" in str(e):
             qdrant.client.create_collection(
                 collection_name=collection_name,
-                vectors_config=VectorParams(size=3584, distance=Distance.COSINE),
+                vectors_config=VectorParams(size=768, distance=Distance.COSINE),
             )
         else:
             # 如果是其他异常，重新抛出
@@ -31,7 +31,7 @@ def get_db_connection(collection_name: str) -> Qdrant:
     return qdrant
 
 
-def embedd_documents(segmented_files_dir: str, collection_name: Optional[str] = None) -> None:
+def embedd_local_segmented_files(segmented_files_dir: str, collection_name: Optional[str] = None) -> None:
     segmented_files = glob.glob(os.path.join(segmented_files_dir, "*.log"))
     docs = []
     for file_path in segmented_files:

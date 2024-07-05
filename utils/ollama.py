@@ -3,7 +3,7 @@ from langchain_community.embeddings import OllamaEmbeddings
 from loguru import logger
 
 
-def load_embedding_model(base_url: str = "http://localhost:11434", model_name: str = "qwen2:latest"):
+def load_embedding_model(base_url: str = "http://10.6.56.29:11434", model_name: str = "chatfire/bge-m3:q8_0"):
     embeddings = OllamaEmbeddings(
         base_url=base_url, model=model_name
     )
@@ -11,7 +11,7 @@ def load_embedding_model(base_url: str = "http://localhost:11434", model_name: s
     return embeddings
 
 
-def load_llm(base_url: str = "http://localhost:11434", model_name: str = "qwen2:latest"):
+def load_llm(base_url: str = "http://10.6.56.29:11434", model_name: str = "qwen2:7b-instruct-q4_0"):
     if len(model_name):
         logger.info(f"LLM: Using Ollama: {model_name}")
         return ChatOllama(

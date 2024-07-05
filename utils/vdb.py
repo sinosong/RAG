@@ -4,7 +4,7 @@ from langchain_community.vectorstores import Qdrant
 from loguru import logger
 from qdrant_client import QdrantClient
 
-from utils.ollama import (
+from utils.xinference import (
     load_embedding_model,
 )
 
